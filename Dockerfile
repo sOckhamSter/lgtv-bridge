@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
-ENV NAME TV_MAC
-ENV NAME TV_IP
+ENV TV_MAC="xx:xx:xx:xx:xx:xx"
+ENV TV_IP="xxx.xxx.xxx.xxx"
 EXPOSE 80
 CMD node index.js service
