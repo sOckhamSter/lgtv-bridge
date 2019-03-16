@@ -1,0 +1,32 @@
+{
+  "name": "lgtv-bridge",
+  "version": "1.0.0",
+  "description": "JS only bridge between LG TV and a Webhook compatible API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sOckhamSter@github.com/sOckhamster/lgtv-bridge.git"
+  },
+  "keywords": [
+    "lg",
+    "smartthings",
+    "tv",
+    "webos"
+  ],
+  "author": "sOckhamSter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sOckhamSter/lgtv-bridge"
+  },
+  "homepage": "https://github.com/sOckhamSter/lgtv-bridge",
+  "dependencies": {
+    "fauxmojs": "^1.0.3",
+    "ip": "^1.1.5",
+    "lgtv2": "^1.4.1",
+    "node-wol": "^0.1.1",
+    "websocket": "^1.0.28"
+  }
+}

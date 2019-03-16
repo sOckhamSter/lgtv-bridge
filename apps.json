@@ -1,0 +1,8 @@
+[
+  {"displayName": "Netflix", "id": "netflix"},
+  {"displayName": "Prime", "id": "amazon"},
+  {"displayName": "MLB", "id": "mlb"},
+  {"displayName": "Plex", "id": "cdp-30"},
+  {"displayName": "HDMI One", "id": "com.webos.app.hdmi1"},
+  {"displayName": "HDMI Two", "id": "com.webos.app.hdmi2"}
+]
