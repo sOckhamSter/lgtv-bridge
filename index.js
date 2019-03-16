@@ -53,7 +53,7 @@ function executeCommand(command, arg) {
       break;
     case 'tvon':
       console.log("\nTurning on TV ...\n");
-      mylgtv.turnOnTV('exitProcess');
+      mylgtv.turnOnTV('');
       break;
     case 'mute':
       var setMute = (arg == 'true');
