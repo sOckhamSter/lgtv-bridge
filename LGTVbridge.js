@@ -20,7 +20,7 @@ const URL = 'ws://' + CONFIG.tvIP + ':3000'
 var LGTVBridge = function () {
   var _self = this;
 
-  this.initAlexa = function() {
+  /*this.initAlexa = function() {
     var ip = require("ip");
     var FauxMo = require("fauxmojs");
 
@@ -29,7 +29,7 @@ var LGTVBridge = function () {
       ipAddress: ip.address(),
       devices: _self.getDevicesList()
     });
-  };
+  };*/
 
   this.connectToTV = function() {
     return require("lgtv2")({

@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/sOckhamSter/lgtv-bridge",
   "dependencies": {
-    "fauxmojs": "^1.0.3",
     "ip": "^1.1.5",
     "lgtv2": "^1.4.1",
     "node-wol": "^0.1.1",

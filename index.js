@@ -33,9 +33,6 @@ function executeCommand(command, arg) {
   var mylgtv = new MyLGTV();
 
   switch(command) {
-    case 'alexa':
-      mylgtv.initAlexa();
-      break;
     case 'appslist':
       mylgtv.execute(API.APPS_LIST, 'subscribe', {});
       break;
@@ -72,7 +69,6 @@ function executeCommand(command, arg) {
 
 function checkArgs(command, arg) {
   switch(command) {
-    case 'alexa':
 	case 'service':
     case 'appslist':
     case 'servicelist':
@@ -103,7 +99,7 @@ function showInstructions() {
   console.log('\n*** Bridge for LG Smart TVs ***' + ' ' + PACKAGE.version);
   console.log('\nUSAGE: node index.js <option> <parameter>');
   console.log('\nOPTIONS:');
-  console.log('\t* alexa - Bridge for Amazon Alexa');
+  //console.log('\t* alexa - Bridge for Amazon Alexa');
   console.log('\t* appslist - Displays info about all apps available in your TV');
   console.log('\t* servicelist - Displays info about all services available in your TV');
   console.log('\t* toast "<message>" - Displays a toast message in your TV');
