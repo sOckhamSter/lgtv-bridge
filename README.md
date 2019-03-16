@@ -8,9 +8,11 @@
 Make sure you define the following environment variables when you run the container:
 - TV_MAC. MAC address of your LG TV in the format "xx:xx:xx:xx:xx:xx"
 - TV_IP. IP address of your LG TV in the format "xxx.xxx.xxx.xxx". You will probably want to make this static or reserved on your TV to prevent it from changing.
+- SERVICE_PORT. The TCP port that the service listens on for requests.
+** Must be run in HOST NETWORK mode or the Wake-on LAN magic packets will fail to wake your TV up **
 
 ### Example docker run
-docker run -p 4000:80 -e TV_MAC="a8:23:fe:87:8d:d8" -e TV_IP="192.168.1.53" lgtvbridge
+docker run --net=host -e TV_MAC="a8:23:fe:87:8d:d8" -e TV_IP="192.168.1.53" -e SERVICE_PORT=4000 lgtvbridge
 
 ### To Do on First Run
 - On your TV, make sure that _TV Mobile On_ (General settings) is set to ON
