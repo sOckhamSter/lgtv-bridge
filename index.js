@@ -52,7 +52,7 @@ function executeCommand(command, arg) {
       mylgtv.turnOffTV();
       break;
     case 'tvon':
-      console.log("\nTurning on " + CONFIG.tvNAME + ' ...\n');
+      console.log("\nTurning on TV ...\n");
       mylgtv.turnOnTV('exitProcess');
       break;
     case 'mute':
