@@ -124,15 +124,19 @@ function bridgeAPIservice() {
             
       switch(request.url) {
         case '/tvon':
+          console.log('Request: tvon');
           executeCommand('tvon','');
           break;
         case '/tvoff':
+          console.log('Request: tvoff');
           executeCommand('tvoff','');
           break; 
         case '/mute':
+          console.log('Request: mute');
           executeCommand('mute','true');
           break;
         case '/unmute':
+          console.log('Request: unmute');
           executeCommand('mute','false');
           break;
         default:
