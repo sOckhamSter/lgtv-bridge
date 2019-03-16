@@ -1,5 +1,5 @@
 # lgtv-bridge
-## A Docker-based Node.js bridge for LG webOS TVs
+## A Docker-based container to enable WebOS LG TVs to be controlled by simple URL requests
 
 ### Modification Notes
 - Modified from lgtv-alexa-skill to remove the Alexa part and add a webhook accessible API
