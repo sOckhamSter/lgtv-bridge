@@ -18,11 +18,11 @@ docker run -p 4000:80 -e TV_MAC="a8:23:fe:87:8d:d8" -e TV_IP="192.168.1.53" lgtv
 - **Important The first time, turning on/off the TV will ask for permission; just confirm the pairing via prompt on your tv and your bridge is ready!**
 
 ### Available Functions (used from the Docker Container Console)
-The following functions are exposed via their respective URLs:
-http://container_ip:80/tvon
-http://container_ip:80/tvoff
-http://container_ip:80/mute
-http://container_ip:80/unmute
+The following functions are exposed via their respective URLs:<br>
+http://container_ip:80/tvon<br>
+http://container_ip:80/tvoff<br>
+http://container_ip:80/mute<br>
+http://container_ip:80/unmute<br>
 
 ### Thanks to original work conducted by
 - [bigbadblo/lgtv-alexa-skill](https://github.com/bigbadblo/lgtv-alexa-skill)
