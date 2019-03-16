@@ -4,6 +4,6 @@ COPY package.json /app
 RUN npm install
 COPY . /app
 ENV TV_MAC="xx:xx:xx:xx:xx:xx" \
-    TV_IP="xxx.xxx.xxx.xxx"
-EXPOSE 80
+    TV_IP="xxx.xxx.xxx.xxx" \
+    SERVICE_PORT=4000
 CMD node index.js service

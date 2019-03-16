@@ -112,7 +112,7 @@ function showInstructions() {
 function bridgeAPIservice() {
   console.log('Starting bridge API service...');
   var http = require('http');
-  var port = 80;
+  var port = parseInt(process.env.SERVICE_PORT);
   var s = http.createServer();
   s.on('request', function(request, response) {
       //response.writeHead(200);
