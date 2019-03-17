@@ -12,12 +12,12 @@
 
 ## Home Pages
 
-Docker Hub: https://hub.docker.com/r/sockhamster/lgtv-bridge
-Github: https://github.com/sOckhamSter/lgtv-bridge
+ - Docker Hub: https://hub.docker.com/r/sockhamster/lgtv-bridge
+ - Github: https://github.com/sOckhamSter/lgtv-bridge
 
 ## Instructions
 
-**Parameters**
+### Parameters ###
 Make sure you define the following environment variables when you run the container:
  - TV_MAC. MAC address of your LG TV in the format "xx:xx:xx:xx:xx:xx"
  - TV_IP. IP address of your LG TV in the format "xxx.xxx.xxx.xxx". You will probably want to make this static or reserved on your TV to prevent it from changing.
@@ -28,15 +28,15 @@ Make sure you define the following environment variables when you run the contai
 
 ***Must be run in HOST NETWORK mode or the Wake-on LAN magic packets will fail to wake your TV up!***
 
-****Example docker run command****
+### Example docker run command ###
 docker run --net=host -e TV_MAC="a8:23:fe:87:8d:d8" -e TV_IP="192.168.1.53" -e SERVICE_PORT=4000 -e CALLBACK_URL_ON="https://url_to_webcore_piston?TurnIt=on" -e CALLBACK_URL_OFF="https://url_to_webcore_piston?TurnIt=off"  lgtvbridge
 
-**To Do on First Run**
+### To Do on First Run ###
  - On your TV, make sure that _TV Mobile On_ (General settings) is set to ON
  - On your TV, make sure that _LG Connect Apps_ (Network settings) is set to ON
  - **Important: The first time, turning on/off the TV will ask for permission; just confirm the pairing via prompt on your TV and your bridge is ready!**
 
-**Available Functions (used from the Docker Container Console)**
+### Available Functions (used from the Docker Container Console) ###
 The following functions are exposed via their respective URLs:
  - http://container_ip:SERVICE_PORT/tvon
  - http://container_ip:SERVICE_PORT/tvoff
