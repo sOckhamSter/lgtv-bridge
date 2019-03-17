@@ -182,10 +182,10 @@ function RunThePings(){
 		.then(function (res) {
 			if (res.alive == true){
 			  thispingstatus=1;
-			  console.log('UP ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
+			  //console.log('UP ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
 			} else {
 			  thispingstatus=0;
-			  console.log('DOWN ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
+			  //console.log('DOWN ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
 			}
 			if( (thispingstatus == ping_previous_status) ) {
 				ping_stable_counter++; // Increment the change counter
