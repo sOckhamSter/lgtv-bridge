@@ -21,10 +21,10 @@ docker run --net=host -e TV_MAC="a8:23:fe:87:8d:d8" -e TV_IP="192.168.1.53" -e S
 
 ### Available Functions (used from the Docker Container Console)
 The following functions are exposed via their respective URLs:<br>
-http://container_ip:80/tvon<br>
-http://container_ip:80/tvoff<br>
-http://container_ip:80/mute<br>
-http://container_ip:80/unmute<br>
+http://container_ip:SERVICE_PORT/tvon<br>
+http://container_ip:SERVICE_PORT/tvoff<br>
+http://container_ip:SERVICE_PORT/mute<br>
+http://container_ip:SERVICE_PORT/unmute<br>
 
 ### Thanks to original work conducted by
 - [bigbadblo/lgtv-alexa-skill](https://github.com/bigbadblo/lgtv-alexa-skill)

@@ -1,10 +1,18 @@
 "use strict";
+var ping = require('ping'); 
 
 const API = require("./lgtv-api.json");
 //const CONFIG = require("./config.json");
 const PACKAGE = require("./package.json");
-
 const MyLGTV = require("./LGTVbridge.js");
+const request = require('request');
+
+
+var ping_change_counter = 0;
+var ping_stable_counter = 0;
+var ping_previous_status = 0;
+var tv_power_detected_status = 0;
+var first_run_detection = 1;
 
 function __init(command, arg) {
   if(checkMacAddress() && checkIPAddress() && checkArgs(command, arg))
@@ -49,10 +57,12 @@ function executeCommand(command, arg) {
       mylgtv.execute(API.TOAST_CREATOR, 'subscribe', {"message": arg});
       break;
     case 'tvoff':
+      //tv_power_detected_status = 0;
       mylgtv.turnOffTV();
       break;
     case 'tvon':
       console.log("\nTurning on TV ...\n");
+      //tv_power_detected_status = 1;
       mylgtv.turnOnTV('');
       break;
     case 'mute':
@@ -155,9 +165,105 @@ function bridgeAPIservice() {
   console.log('http://container_ip:' + port + '/tvoff');
   console.log('http://container_ip:' + port + '/mute');
   console.log('http://container_ip:' + port + '/unmute');
-
+  
+  console.log('-----------------------------------------------------\n');
+  
+  RunThePings();
 
 }
+
+
+// Our app function.
+function RunThePings(){
+  var thispingstatus = 0;
+		// This will send a ping to our host (site) and then..
+		ping.promise.probe(process.env.TV_IP, {time: 10,})
+		// runs 'then' function after completion and sends the response to it (res).
+		.then(function (res) {
+			if (res.alive == true){
+			  thispingstatus=1;
+			  console.log('UP ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
+			} else {
+			  thispingstatus=0;
+			  console.log('DOWN ping_change_counter:' +  ping_change_counter + ',ping_previous_status:' + ping_previous_status + ',tv_power_detected_status:' + tv_power_detected_status + ',stable:' + ping_stable_counter);
+			}
+			if( (thispingstatus == ping_previous_status) ) {
+				ping_stable_counter++; // Increment the change counter
+			}
+			else {
+				ping_stable_counter = 0;
+			}
+			if(ping_stable_counter > 5) {
+				ping_stable_counter--; // keep it at 5, don't want to run out of memory
+				// 5 pings assumes that the device status is permanent.
+				tv_power_detected_status=thispingstatus;
+				if(first_run_detection == 1) {
+					// We have a stable ping and the app has just started.
+					// Need to fake sending a status change to the callback url
+					ping_change_counter = 4;
+					if(thispingstatus == 0){
+						ping_previous_status=1;
+						}
+					else {
+						ping_previous_status=0;
+					}
+				}
+			}
+			
+			// Now some clever stuff to figure out if we've missed a ping or it's change and stuff
+			// If the ping status has changed, or we have just missed some pings
+			if( (thispingstatus != ping_previous_status) || (ping_change_counter > 0) ) {
+				// Ping status has changed from last time
+				ping_change_counter++;
+				
+				if(ping_change_counter > 3) {
+					// We've missed pings!
+					ping_change_counter = 0; // Reset the counter
+					console.log('TV Power Status Change Detected');
+					var callback_url = "";
+					if(thispingstatus == 1 && ((tv_power_detected_status == 0) || (first_run_detection == 1)) ) {
+						first_run_detection = 0;
+						console.log('Opening Callback URL for TV On');
+						tv_power_detected_status = 1;
+						callback_url = process.env.CALLBACK_URL_ON;
+						request(callback_url, { json: true }, (err, res, body) => {
+						  if (err) { return console.log(err); }
+						  console.log(body.url);
+						  console.log(body.explanation);
+						});
+					}
+					else if (thispingstatus == 0 && ((tv_power_detected_status == 1) || (first_run_detection == 1))) {
+						first_run_detection = 0;
+						console.log('Opening Callback URL for TV Off');
+						tv_power_detected_status = 0;
+						callback_url = process.env.CALLBACK_URL_OFF;
+						request(callback_url, { json: true }, (err, res, body) => {
+						  if (err) { return console.log(err); }
+						  console.log(body.url);
+						  console.log(body.explanation);
+						});
+					}
+
+				}
+			}
+			else {
+			
+				ping_change_counter = 0; // Reset the change counter
+			}
+	
+	
+			ping_previous_status = thispingstatus;			
+			
+			
+		});
+			
+
+	
+	// This just continuously runs the function every 1000 miliseconds (1 second).
+	setTimeout(RunThePings, 1000);
+}
+
+
 
 __init(process.argv[2], process.argv[3]);
 
