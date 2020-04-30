@@ -47,7 +47,7 @@ The following functions are exposed via their respective URLs:
 You can integrate this into Samsung SmartThings for basic on/off control. The device you create in SmartThings will track the power status of the TV in the real world based, and also allow control of its power state.
 1) Create a Virtual On/Off switch in SmartThings
 2) Make sure you have the webCoRE SmartApp installed: https://wiki.webcore.co/webCoRE#Installing_webCoRE
-3) Import the following Piston: o69ka: ![enter image description here](https://github.com/sOckhamSter/lgtv-bridge/blob/master/lgtv-bridge_webCoRE_Piston.png?raw=true)
+3) Import the following Piston: afoni: ![enter image description here](https://github.com/sOckhamSter/lgtv-bridge/blob/master/lgtv-bridge_webCoRE_Piston.png?raw=true)
 4) Change the values for lgtv_bridge_tvon and lgtv_bridge_tvoff to use the appropriate IP address and port of the lgtv-bridge container.
 5) Copy and paste the External URL from the Piston's property page to use as the container's callback URL. Add ?TurnIt=on or ?TurnIt=off to the end of the URL depending on whether it's for the CALLBACK_URL_ON or CALLBACK_URL_OFF variable. See this screenshot of the webCoRE dashboard for the location of that External URL: ![enter image description here](https://github.com/sOckhamSter/lgtv-bridge/blob/master/lgtv-bridge_webcore_external_url.png?raw=true)
 
