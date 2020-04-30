@@ -58,6 +58,7 @@ function executeCommand(command, arg) {
       break;
     case 'tvoff':
       //tv_power_detected_status = 0;
+      console.log("\nTurning off TV ...\n");
       mylgtv.turnOffTV();
       break;
     case 'tvon':

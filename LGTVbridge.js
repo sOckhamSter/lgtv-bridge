@@ -87,7 +87,13 @@ var LGTVBridge = function () {
       });
     }).on("error", function(err) {
       if(err.code == 'ECONNREFUSED') {
-        setTimeout(_self.turnOffTV(), 2000);
+        console.log("TV refused connection, trying again in 2 seconds...");
+        try {
+          setTimeout(_self.turnOffTV(), 2000);
+        } catch(e) {
+          console.log("Failed to set timer to try again: " + e);
+        }
+        
       } else {
         console.error("Error while turning off your TV:", err);
         lgtv.disconnect();
@@ -187,8 +193,7 @@ var LGTVBridge = function () {
       lgtv.disconnect();
     });
   };
-  
+
 }
 
 module.exports = LGTVBridge;
-
