@@ -1,5 +1,5 @@
 "use strict";
-var ping = require('ping'); 
+var ping = require('ping');
 
 const API = require("./lgtv-api.json");
 //const CONFIG = require("./config.json");
@@ -131,7 +131,7 @@ function bridgeAPIservice() {
       //console.log(request.url);
       //response.write('hi');
       response.write('Requested API Call: ' + request.url);
-            
+
       switch(request.url) {
         case '/tvon':
           console.log('Request: tvon');
@@ -140,7 +140,7 @@ function bridgeAPIservice() {
         case '/tvoff':
           console.log('Request: tvoff');
           executeCommand('tvoff','');
-          break; 
+          break;
         case '/mute':
           console.log('Request: mute');
           executeCommand('mute','true');
@@ -151,12 +151,12 @@ function bridgeAPIservice() {
           break;
         default:
           console.log('Unknown Command Received');
-          break;         
+          break;
       }
       response.end();
 
   });
- 
+
   s.listen(port);
   //console.log('\nBrowse to http://container_ip:' + port);
   console.log('Service started, listening on port ' + port);
@@ -165,9 +165,9 @@ function bridgeAPIservice() {
   console.log('http://container_ip:' + port + '/tvoff');
   console.log('http://container_ip:' + port + '/mute');
   console.log('http://container_ip:' + port + '/unmute');
-  
+
   console.log('-----------------------------------------------------\n');
-  
+
   RunThePings();
 
 }
@@ -209,13 +209,13 @@ function RunThePings(){
 					}
 				}
 			}
-			
+
 			// Now some clever stuff to figure out if we've missed a ping or it's change and stuff
 			// If the ping status has changed, or we have just missed some pings
 			if( (thispingstatus != ping_previous_status) || (ping_change_counter > 0) ) {
 				// Ping status has changed from last time
 				ping_change_counter++;
-				
+
 				if(ping_change_counter > 3) {
 					// We've missed pings!
 					ping_change_counter = 0; // Reset the counter
@@ -224,41 +224,53 @@ function RunThePings(){
 					if(thispingstatus == 1 && ((tv_power_detected_status == 0) || (first_run_detection == 1)) ) {
 						first_run_detection = 0;
 						console.log('Opening Callback URL for TV On');
+            console.log(process.env.CALLBACK_URL_ON);
 						tv_power_detected_status = 1;
 						callback_url = process.env.CALLBACK_URL_ON;
 						request(callback_url, { json: true }, (err, res, body) => {
-						  if (err) { return console.log(err); }
-						  console.log(body.url);
-						  console.log(body.explanation);
+              if (err) {
+                console.log("Error calling callback url: " + err);
+              }
+              else {
+                console.log("Callback successful");
+                //console.log("Body URL: " + body.url);
+                //console.log("Body Explanation: " + body.explanation);
+              }
 						});
 					}
 					else if (thispingstatus == 0 && ((tv_power_detected_status == 1) || (first_run_detection == 1))) {
 						first_run_detection = 0;
 						console.log('Opening Callback URL for TV Off');
+            console.log(process.env.CALLBACK_URL_OFF);
 						tv_power_detected_status = 0;
 						callback_url = process.env.CALLBACK_URL_OFF;
 						request(callback_url, { json: true }, (err, res, body) => {
-						  if (err) { return console.log(err); }
-						  console.log(body.url);
-						  console.log(body.explanation);
+						  if (err) {
+                console.log("Error calling callback url: " + err);
+              }
+              else {
+                console.log("Callback successful");
+                //console.log("Body URL: " + body.url);
+                //console.log("Body Explanation: " + body.explanation);
+              }
 						});
 					}
 
 				}
 			}
 			else {
-			
+
 				ping_change_counter = 0; // Reset the change counter
 			}
-	
-	
-			ping_previous_status = thispingstatus;			
-			
-			
-		});
-			
 
-	
+
+			ping_previous_status = thispingstatus;
+
+
+		});
+
+
+
 	// This just continuously runs the function every 1000 miliseconds (1 second).
 	setTimeout(RunThePings, 1000);
 }
@@ -266,4 +278,3 @@ function RunThePings(){
 
 
 __init(process.argv[2], process.argv[3]);
-
